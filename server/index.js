@@ -6,6 +6,29 @@ const port = 1225;
 const app = express();
 app.use(express.json());
 
+const giftList = [
+  "Gift card to a popular store",
+  "Gourmet chocolates assortment",
+  "Personalized engraved pen",
+  "Portable Bluetooth speaker",
+  "Cozy throw blanket",
+  "Set of scented candles",
+  "Elegant photo frame",
+  "Stylish wristwatch",
+  "Deluxe shaving kit",
+  "Artistic coffee mug set",
+  "High-quality leather wallet",
+  "Fitness tracker band",
+  "Luxurious bathrobe",
+  "Fashionable tote bag",
+  "Culinary cooking set",
+  "Travel neck pillow",
+  "Premium tea sampler",
+  "Wireless earbuds",
+  "Aromatherapy diffuser",
+  "Premium notebook and pen set",
+];
+
 // TODO: hardcode a merkle root here representing the whole nice list
 // paste the hex string in here, without the 0x prefix
 const MERKLE_ROOT =
@@ -18,7 +41,8 @@ app.post("/gift", (req, res) => {
   // Prove that the name is in the list
   const isInTheList = verifyProof(proof, name, MERKLE_ROOT);
   if (isInTheList) {
-    res.send("You got 2 BTC!");
+    const randomIndex = Math.floor(Math.random() * giftList.length);
+    res.send(giftList[randomIndex]);
   } else {
     res.send("You are not on the list :(");
   }
